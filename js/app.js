@@ -66,12 +66,26 @@ document.addEventListener('DOMContentLoaded', function() {
   	  let skipClicked = false;
 	  let pausedBeforeEnd = false;
   
- skipBtn.addEventListener('click', function() {
-  // Avance la vidéo pour la mettre presque à la fin (0.01 seconde avant)
-   skipClicked = true;
-  	  skipBtn.style.display = 'none';
-  if (introVideo.duration) {
-    introVideo.currentTime = introVideo.duration - 0.01;
+skipBtn.addEventListener('click', function() {
+  skipClicked = true;
+  skipBtn.style.display = 'none';
+
+  if (introVideo.readyState >= 2) { // Vérifie que la vidéo est suffisamment chargée
+    introVideo.currentTime = introVideo.duration - 0.05;
+    introVideo.pause();
+
+    // Force précisément l'image finale à s'afficher
+    introVideo.addEventListener('seeked', function showLastFrame() {
+      introVideo.removeEventListener('seeked', showLastFrame);
+      introVideo.pause();
+    });
+  } else {
+    // Si la vidéo n'est pas encore prête, attend qu'elle charge puis fait la même chose
+    introVideo.addEventListener('loadeddata', function onLoaded() {
+      introVideo.currentTime = introVideo.duration - 0.05;
+      introVideo.pause();
+      introVideo.removeEventListener('loadeddata', onLoaded);
+    });
   }
 });
 
