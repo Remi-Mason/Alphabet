@@ -77,15 +77,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
+  if (startBtn.disabled) return;  // Empêche complètement un second clic
+  
+  startBtn.disabled = true;       // 👈 Méthode fiable partout
   startSound.play();
   startBtn.classList.remove('breathe');
   startBtn.classList.add('spin-fade');
-  startBtn.style.pointerEvents = 'none';  // 👈 ajoute cette ligne
 
   setTimeout(() => {
     homeBg.style.display = 'none';
     introVideo.style.display = 'block';
     introVideo.play();
+    startBtn.style.display = 'none';  // Optionnel : cache définitivement après animation
   }, 1000);
 
   let pausedBeforeEnd = false;
