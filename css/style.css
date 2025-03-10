@@ -71,6 +71,9 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+   -webkit-tap-highlight-color: transparent; /* retire la sélection bleue sur mobile */
+  user-select: none;                        /* empêche aussi la sélection de texte accidentelle */
+  outline: none;                 
 }
 #titre {
   position: absolute;
