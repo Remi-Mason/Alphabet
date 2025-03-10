@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
    skipClicked = true;
   	  skipBtn.style.display = 'none';
   if (introVideo.duration) {
-    introVideo.currentTime = introVideo.duration - 0.01;
+    introVideo.currentTime = introVideo.duration - 0.05;
   }
 });
 
