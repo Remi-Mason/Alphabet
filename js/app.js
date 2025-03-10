@@ -70,22 +70,28 @@ skipBtn.addEventListener('click', function() {
   skipClicked = true;
   skipBtn.style.display = 'none';
 
-  if (introVideo.readyState >= 2) { // Vérifie que la vidéo est suffisamment chargée
-    introVideo.currentTime = introVideo.duration - 0.01;
-    introVideo.pause();
+  introVideo.pause(); // 👈 d'abord pause explicitement la vidéo
+  
+  if (introVideo.duration) {
+    introVideo.currentTime = introVideo.duration - 0.2; // 👈 augmente légèrement pour être sûr à 100%
+  }
 
-    // Force précisément l'image finale à s'afficher
-    introVideo.addEventListener('seeked', function showLastFrame() {
-      introVideo.removeEventListener('seeked', showLastFrame);
-      introVideo.pause();
-    });
-  } else {
-    // Si la vidéo n'est pas encore prête, attend qu'elle charge puis fait la même chose
-    introVideo.addEventListener('loadeddata', function onLoaded() {
-      introVideo.currentTime = introVideo.duration - 0.01;
-      introVideo.pause();
-      introVideo.removeEventListener('loadeddata', onLoaded);
-    });
+  introVideo.addEventListener('seeked', function handler() {
+    introVideo.pause(); // force la pause une fois la vidéo repositionnée
+    introVideo.removeEventListener('seeked', showLastFrame);
+
+    // Affiche immédiatement le bouton COMMENCER
+    commencerBtn.style.display = 'block';
+    commencerBtn.classList.add('fade-in2', 'blink');
+
+    const titre = document.getElementById('titre');
+    if (titre) {
+      titre.style.display = 'block';
+      titre.classList.add('fade-in2');
+    }
+
+    const newSound = new Audio('assets/alpha.mp3');
+    newSound.play();
   }
 });
 
