@@ -78,8 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
   startSound.play();
-    startBtn.classList.remove('breathe');
+  startBtn.classList.remove('breathe');
   startBtn.classList.add('spin-fade');
+  startBtn.style.pointerEvents = 'none';  // 👈 ajoute cette ligne
+
   setTimeout(() => {
     homeBg.style.display = 'none';
     introVideo.style.display = 'block';
