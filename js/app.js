@@ -77,19 +77,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
-  if (startBtn.disabled) return;  // Empêche complètement un second clic
-  
-  startBtn.disabled = true;       // 👈 Méthode fiable partout
   startSound.play();
   startBtn.classList.remove('breathe');
   startBtn.classList.add('spin-fade');
+
+  // Couche de blocage UNIQUEMENT sur le bouton START
+  const blocker = document.createElement('div');
+  const btnRect = startBtn.getBoundingClientRect();
+
+  blocker.style.position = 'absolute';
+  blocker.style.top = btnRect.top + 'px';
+  blocker.style.left = btnRect.left + 'px';
+  blocker.style.width = btnRect.width + 'px';
+  blocker.style.height = btnRect.height + 'px';
+  blocker.style.zIndex = '9999';
+
+  document.body.appendChild(blocker);
 
   setTimeout(() => {
     homeBg.style.display = 'none';
     introVideo.style.display = 'block';
     introVideo.play();
-    startBtn.style.display = 'none';  // Optionnel : cache définitivement après animation
-  }, 1000);
+    startBtn.style.display = 'none';
+    blocker.remove();  // Supprime le blocker après utilisation
+  }, 1800);
 
   let pausedBeforeEnd = false;
   const triggerBeforeEnd = 6;
