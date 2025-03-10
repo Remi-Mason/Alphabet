@@ -75,22 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Fonction à part pour ne pas dupliquer ton code existant
-function afficherBoutonCommencer() {
-  commencerBtn.style.display = 'block';
-  commencerBtn.classList.add('fade-in2', 'blink');
-
-  const titre = document.getElementById('titre');
-  if (titre) {
-    titre.style.display = 'block';
-    titre.classList.add('fade-in2');
-  }
-
-  const newSound = new Audio('assets/alpha.mp3');
-  newSound.play();
-}
-
-
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
   startSound.play();
