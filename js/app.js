@@ -70,30 +70,37 @@ skipBtn.addEventListener('click', function() {
   skipClicked = true;
   skipBtn.style.display = 'none';
 
-  introVideo.pause(); // 👈 d'abord pause explicitement la vidéo
-  
-  if (introVideo.duration) {
-    introVideo.currentTime = introVideo.duration - 0.2; // 👈 augmente légèrement pour être sûr à 100%
-  }
+  if (introVideo.readyState >= 2 && introVideo.duration) {
+    introVideo.currentTime = introVideo.duration - 0.1;
+    introVideo.pause();
 
-  introVideo.addEventListener('seeked', function handler() {
-    introVideo.pause(); // force la pause une fois la vidéo repositionnée
-    introVideo.removeEventListener('seeked', showLastFrame);
-
-    // Affiche immédiatement le bouton COMMENCER
-    commencerBtn.style.display = 'block';
-    commencerBtn.classList.add('fade-in2', 'blink');
-
-    const titre = document.getElementById('titre');
-    if (titre) {
-      titre.style.display = 'block';
-      titre.classList.add('fade-in2');
-    }
-
-    const newSound = new Audio('assets/alpha.mp3');
-    newSound.play();
+    // Affichage immédiat du bouton COMMENCER une fois la vidéo calée
+    afficherBoutonCommencer();
+  } else {
+    introVideo.addEventListener('loadedmetadata', function onLoadMeta() {
+      introVideo.currentTime = introVideo.duration - 0.1;
+      introVideo.pause();
+      afficherBoutonCommencer();
+      introVideo.removeEventListener('loadedmetadata', onLoadMeta);
+    });
   }
 });
+
+// Fonction à part pour ne pas dupliquer ton code existant
+function afficherBoutonCommencer() {
+  commencerBtn.style.display = 'block';
+  commencerBtn.classList.add('fade-in2', 'blink');
+
+  const titre = document.getElementById('titre');
+  if (titre) {
+    titre.style.display = 'block';
+    titre.classList.add('fade-in2');
+  }
+
+  const newSound = new Audio('assets/alpha.mp3');
+  newSound.play();
+}
+
 
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
