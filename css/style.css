@@ -8,12 +8,13 @@ html, body {
 }
 
 #app-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   max-width: 1080px;
   max-height: 1920px;
-  margin: auto;
+  margin: 0 auto;
   position: relative;
+  overflow: hidden; /* Important pour empêcher tout dépassement */
 }
 
 /* Styles des pages */
