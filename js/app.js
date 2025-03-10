@@ -66,23 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
   	  let skipClicked = false;
 	  let pausedBeforeEnd = false;
   
-skipBtn.addEventListener('click', function() {
-  skipClicked = true;
-  skipBtn.style.display = 'none';
-
-  if (introVideo.readyState >= 2 && introVideo.duration) {
-    introVideo.currentTime = introVideo.duration - 0.1;
-    introVideo.pause();
-
-    // Affichage immédiat du bouton COMMENCER une fois la vidéo calée
-    afficherBoutonCommencer();
-  } else {
-    introVideo.addEventListener('loadedmetadata', function onLoadMeta() {
-      introVideo.currentTime = introVideo.duration - 0.1;
-      introVideo.pause();
-      afficherBoutonCommencer();
-      introVideo.removeEventListener('loadedmetadata', onLoadMeta);
-    });
+ skipBtn.addEventListener('click', function() {
+  // Avance la vidéo pour la mettre presque à la fin (0.01 seconde avant)
+   skipClicked = true;
+  	  skipBtn.style.display = 'none';
+  if (introVideo.duration) {
+    introVideo.currentTime = introVideo.duration - 0.01;
   }
 });
 
