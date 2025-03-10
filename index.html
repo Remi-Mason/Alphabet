@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Alphabet et Animaux</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Container centré en 1080x1920 -->
+  <div id="app-container">
+    <!-- Page d'accueil -->
+<section id="home" class="page active">
+  <div id="home-wrapper">
+    <div class="background" id="home-bg"></div>
+    <!-- Conteneur vidéo d'intro (caché au départ) -->
+    <video id="intro-video" class="background" width="1080" height="1920" preload="auto" style="display:none;">
+      <source src="assets/intro.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+  </div>
+  <!-- Bouton de démarrage et autres éléments fixes -->
+  <img src="assets/start_button.png" id="start-btn" alt="Démarrer" class="breathe">
+  <img src="assets/titre.png" id="titre" alt="L'Alphabet" style="display: none;">
+  <!-- Bouton COMMENCER (caché initialement) -->
+  <button id="commencer-btn" style="display:none;" aria-label="Commencer"></button>
+  <!-- Bouton SKIP -->
+  <button id="skip-btn">Skip</button>
+</section>
+
+    <!-- Page du quiz -->
+    <section id="quiz" class="page">
+      <div class="background" id="quiz-bg"></div>
+      <div id="quiz-content">
+        <div id="question-counter">1 / 2</div>
+        <div id="question">
+          <img src="assets/letterA.png" id="letter-img" alt="Lettre A">
+          <span id="question-text"><strong>Comme dans...</strong></span>
+        </div>
+        <div id="options">
+          <button class="option" data-answer="avion">Avion</button>
+          <button class="option" data-answer="alpaga">Alpaga</button>
+          <button class="option" data-answer="abeille">Abeille</button>
+        </div>
+        <button id="valider-btn">VALIDER</button>
+        <button id="jouer-btn">JOUER</button>
+        <!-- Image de feedback (affichée en cas de validation) -->
+        <img src="" id="feedback-img" alt="Feedback" style="display:none;">
+        <!-- Bouton SUIVANT (apparait en cas d'erreur) -->
+        <button id="suivant-btn" style="display:none;">SUIVANT</button>
+      </div>
+    </section>
+
+    <!-- Page de résultat -->
+    <section id="result" class="page">
+      <div class="background" id="result-bg"></div>
+      <div id="result-content">
+        <h1>Résultat</h1>
+        <p id="score"></p>
+        <button id="recommencer-btn">Recommencer</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Enregistrement du service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(function(registration) {
+          console.log('Service Worker enregistré avec le scope :', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('L\'enregistrement du Service Worker a échoué :', error);
+        });
+    }
+  </script>
+</body>
+</html>
