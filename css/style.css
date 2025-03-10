@@ -1,0 +1,293 @@
+/* Styles généraux */
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000; /* fond neutre pour bien voir le centrage */
+}
+
+#app-container {
+  width: 100vw;
+  height: 100vh;
+  max-width: 1080px;
+  max-height: 1920px;
+  margin: auto;
+  position: relative;
+}
+
+/* Styles des pages */
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Styles de fond */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* ou contain selon vos préférences */
+  background-position: center;
+}
+#home {
+  position: relative;
+}
+/* Fond de la page d'accueil */
+#home-bg {
+  background-image: url('../assets/home_bg.png');
+  background-size: contain; /* ou "cover" si vous préférez couvrir entièrement */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Fond de la page du quiz */
+#quiz-bg {
+  background-image: url('../assets/frame1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222; /* Couleur de fond proche de l'image */
+    display: none;
+}
+
+/* Fond de la page de résultat */
+#result-bg {
+  background-image: url('../assets/result_bg.jpg');
+}
+
+/* Boutons centrés */
+#start-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+#titre {
+  position: absolute;
+  top: 10px; /* Ajustez selon vos besoins */
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  animation: fadeIn2 2s;
+  /* Vous pouvez ajouter d'autres styles si nécessaire */
+}
+#commencer-btn {
+  width: 250px;
+  height: 80px;
+  /* La première couche (à gauche) est l'image, la deuxième est le dégradé */
+  background: 
+    url('../assets/commencer.png') no-repeat center center,
+    linear-gradient(45deg, #F5F5DC, blue);
+  /* L'image sera redimensionnée selon sa taille (si elle a de la transparence, le dégradé apparaîtra derrière) */
+  background-size: contain, cover;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: fadeIn2 3s forwards, borderGlow 2s infinite;
+}
+#skip-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 300px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.5;
+  z-index: 100; /* S'assurer qu'il est au-dessus de la vidéo */
+}
+#home-wrapper {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
+@keyframes fadeOut {
+  from { opacity: 0.5; }
+  to { opacity: 0; }
+}
+.fadeOut {
+  animation: fadeOut 1s forwards;
+}
+@keyframes borderGlow {
+  0%, 100% { border-color: #fff; box-shadow: 0 0 5px #2ddff3; }
+  50% { border-color: #fff; box-shadow: 0 0 20px #2ddff3; }
+}
+/* Animations */
+@keyframes spinFade {
+  0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0; }
+}
+
+.spin-fade {
+  animation: spinFade 2s forwards;
+}
+@keyframes slowBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.slow-blink {
+  animation: slowBlink 0.2s infinite !important;
+}
+@keyframes breathe {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.breathe {
+  animation: breathe 3s infinite;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.5; }
+}
+
+.fade-in {
+  animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn2 {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in2 {
+  animation: fadeIn 1s forwards;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes elastic {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.2); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.elastic {
+  animation: elastic 0.5s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+/* Contenu du quiz */
+#quiz-content {
+  background-image: url('../assets/frame1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative; /* Si nécessaire pour le positionnement interne */
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 2;
+  color: #fff;
+}
+
+#question-counter {
+  font-size: 24px;
+  margin-bottom: 20px;
+    text-align: center;
+}
+
+#question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+#question img {
+  display: block;
+  margin: 0 auto;
+}
+#question-text {
+  margin-top: 10px;
+  text-align: center;
+}
+#options {
+  text-align: center;
+}
+
+.option {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#valider-btn, #jouer-btn, #suivant-btn, #recommencer-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Page de résultat */
+#result-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 50%;
+  color: #fff;
+}
+.zoom-fade {
+  animation: zoomFade 1.5s ease forwards; /* augmente à 1.5s pour adoucir */
+}
+
+@keyframes zoomFade {
+  from { transform: scale(0.9); opacity: 0; } /* léger zoom pour éviter l'effet trop brutal */
+  to { transform: scale(1); opacity: 1; }
+}
