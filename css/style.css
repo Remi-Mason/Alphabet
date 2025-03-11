@@ -7,15 +7,16 @@ html, body {
   width: 100vw;
     background-color: #111;
 }
-
 #app-container {
-  width: 100%;
-  height: 100%;
+  position: fixed; /* 👈 Essentiel sur mobile */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   max-width: 1080px;
   max-height: 1920px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden; /* Important pour empêcher tout dépassement */
+  margin: auto;
+  overflow: hidden;
 }
 
 /* Styles des pages */
