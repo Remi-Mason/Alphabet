@@ -66,13 +66,27 @@ document.addEventListener('DOMContentLoaded', function() {
   	  let skipClicked = false;
 	  let pausedBeforeEnd = false;
   
- skipBtn.addEventListener('click', function() {
-  // Avance la vidéo pour la mettre presque à la fin (0.01 seconde avant)
-   skipClicked = true;
-  	  skipBtn.style.display = 'none';
-  if (introVideo.duration) {
-    introVideo.currentTime = introVideo.duration - 0.05;
+skipBtn.addEventListener('click', function() {
+  skipClicked = true;
+  skipBtn.style.display = 'none';
+
+  introVideo.pause();
+  introVideo.style.display = 'none';
+
+  const lastFrameImg = document.getElementById('intro-final-frame'); // 👈 ID corrigé ici
+  lastFrameImg.style.display = 'block';
+
+  commencerBtn.style.display = 'block';
+  commencerBtn.classList.add('fade-in2', 'blink');
+
+  const titre = document.getElementById('titre');
+  if (titre) {
+    titre.style.display = 'block';
+    titre.classList.add('fade-in2');
   }
+
+  const newSound = new Audio('assets/alpha.mp3');
+  newSound.play();
 });
 
 // Logique de la page d'accueil
@@ -107,7 +121,7 @@ startBtn.addEventListener('click', function() {
 
   // Afficher le bouton skip après 2 secondes
   introVideo.addEventListener('timeupdate', function() {
-    if (!skipClicked && introVideo.currentTime >= 6 && skipBtn.style.display === 'none') {
+    if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.display === 'none') {
 		    skipBtn.classList.add('fade-in');
       skipBtn.style.display = 'block';
     }
