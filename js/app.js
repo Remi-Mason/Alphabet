@@ -1,10 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', function() {
   // Récupération des éléments des pages
   const homePage = document.getElementById('home');
   const quizPage = document.getElementById('quiz');
   const resultPage = document.getElementById('result');
-
 
   // Éléments de la page d'accueil
   const startBtn = document.getElementById('start-btn');
@@ -15,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const introVideo = document.getElementById('intro-video');
   const skipBtn = document.getElementById('skip-btn'); // Bouton SKIP ajouté
   
-  
-
   // Éléments de la page du quiz
   const questionCounterEl = document.getElementById('question-counter');
   const validerBtn = document.getElementById('valider-btn');
@@ -29,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const scoreEl = document.getElementById('score');
   const recommencerBtn = document.getElementById('recommencer-btn');
 
-  // Sons
+  // Sons divers
   const buttonSound = new Audio('assets/sound_button.mp3');
   const jouerSound = new Audio('assets/sound_jouer.mp3');
   const correctSound = new Audio('assets/sound_correct.mp3');
@@ -42,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   quizBgImg.onload = function() {
     console.log("L'image frame1 est préchargée");
   };
+
   // Données du quiz (exemple avec 2 questions)
   const quizData = [
     {
@@ -62,151 +59,148 @@ document.addEventListener('DOMContentLoaded', function() {
   let score = 0;
   let selectedAnswer = null;
   
+  // Initialisation du bouton Skip
   skipBtn.style.display = 'none';
-  	  let skipClicked = false;
-	  let pausedBeforeEnd = false;
-  
-skipBtn.addEventListener('click', function() {
-  skipClicked = true;
-  skipBtn.style.display = 'none';
-
-  introVideo.pause();
-  introVideo.style.display = 'none';
-
-  const lastFrameImg = document.getElementById('intro-final-frame'); // 👈 ID corrigé ici
-  lastFrameImg.style.display = 'block';
-
-  commencerBtn.style.display = 'block';
-  commencerBtn.classList.add('fade-in2', 'blink');
-
-  const titre = document.getElementById('titre');
-  if (titre) {
-    titre.style.display = 'block';
-    titre.classList.add('fade-in2');
-  }
-
-  const newSound = new Audio('assets/alpha.mp3');
-  newSound.play();
-});
-
-// Logique de la page d'accueil
-startBtn.addEventListener('click', function() {
-  startSound.play();
-  startBtn.classList.remove('breathe');
-  startBtn.classList.add('spin-fade');
-
-  // Couche de blocage UNIQUEMENT sur le bouton START
-  const blocker = document.createElement('div');
-  const btnRect = startBtn.getBoundingClientRect();
-
-  blocker.style.position = 'absolute';
-  blocker.style.top = btnRect.top + 'px';
-  blocker.style.left = btnRect.left + 'px';
-  blocker.style.width = btnRect.width + 'px';
-  blocker.style.height = btnRect.height + 'px';
-  blocker.style.zIndex = '9999';
-
-  document.body.appendChild(blocker);
-
-  setTimeout(() => {
-    homeBg.style.display = 'none';
-    introVideo.style.display = 'block';
-    introVideo.play();
-    startBtn.style.display = 'none';
-    blocker.remove();  // Supprime le blocker après utilisation
-  }, 1800);
-
+  let skipClicked = false;
   let pausedBeforeEnd = false;
-  const triggerBeforeEnd = 6;
-
-  // Afficher le bouton skip après 2 secondes
-  introVideo.addEventListener('timeupdate', function() {
-    if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.display === 'none') {
-		    skipBtn.classList.add('fade-in');
-      skipBtn.style.display = 'block';
-    }
-
-    // Mettre la vidéo en pause 0.1 seconde avant la fin pour afficher le bouton "COMMENCER"
-    if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
-      pausedBeforeEnd = true;
-	  skipBtn.classList.remove('fade-in');
-skipBtn.classList.add('fadeOut');
-  skipBtn.addEventListener('animationend', function() {
+  
+  skipBtn.addEventListener('click', function() {
+    skipClicked = true;
     skipBtn.style.display = 'none';
-  }, { once: true });
-    skipClicked = true;              // Empêcher toute réapparition
+  
     introVideo.pause();
-      // Afficher le bouton "COMMENCER" par-dessus la vidéo
-      commencerBtn.style.display = 'block';
-      commencerBtn.classList.add('fade-in2', 'blink');
- // Afficher la nouvelle image en haut avec un fade in
-const titre = document.getElementById('titre');
-  if (titre) {
-  titre.style.display = 'block';
-  titre.classList.add('fade-in2');
-  }
-const newSound = new Audio('assets/alpha.mp3'); // Remplacez le chemin par le fichier de son désiré
-  newSound.play();
-}
-  });
-
-  // En cas d'ended (au cas où le timeupdate ne se déclenche pas exactement comme souhaité)
-  introVideo.addEventListener('ended', function() {
-    introVideo.pause();
+    introVideo.style.display = 'none';
+  
+    const lastFrameImg = document.getElementById('intro-final-frame'); // ID corrigé
+    lastFrameImg.style.display = 'block';
+  
+    // Affiche le bouton "COMMENCER" et le titre
     commencerBtn.style.display = 'block';
     commencerBtn.classList.add('fade-in2', 'blink');
+  
+    const titre = document.getElementById('titre');
+    if (titre) {
+      titre.style.display = 'block';
+      titre.classList.add('fade-in2');
+    }
+  
+    const newSound = new Audio('assets/alpha.mp3');
+    newSound.play();
   });
-});
-
-commencerBtn.addEventListener('click', function() {
-  // Joue le son et lance l'animation du bouton
-  commencerSound.play();
-  commencerBtn.classList.add('slow-blink');
-  commencerBtn.classList.add('spin-fade'); // Si tu souhaites garder cette animation
-
-  const homeWrapper = document.getElementById('home-wrapper');
-
-  // Cache le quiz et supprime toute animation précédente
-  quizPage.style.display = 'none';
-  quizPage.style.visibility = 'hidden';
-  quizPage.style.opacity = '0';
-  quizPage.classList.remove('zoom-fade');
-
-  // Forcer un reflow pour s'assurer que la transition est prise en compte
-  void homeWrapper.offsetWidth;
   
-  // Lance la transition de la page d'accueil
-  homeWrapper.classList.add('fade-out');
-
-  let transitionFired = false;
-  function handleTransition() {
-    if (transitionFired) return;
-    transitionFired = true;
-    console.log('Transition ended');
-    
-    // Masque la page d'accueil
-    homePage.style.display = 'none';
-    
-    // Après un léger délai, affiche le quiz en rendant visibles toutes ses propriétés
+  // Logique de la page d'accueil
+  startBtn.addEventListener('click', function() {
+    startSound.play();
+    startBtn.classList.remove('breathe');
+    startBtn.classList.add('spin-fade');
+  
+    // Création d'un blocker temporaire sur le bouton Start
+    const blocker = document.createElement('div');
+    const btnRect = startBtn.getBoundingClientRect();
+    blocker.style.position = 'absolute';
+    blocker.style.top = btnRect.top + 'px';
+    blocker.style.left = btnRect.left + 'px';
+    blocker.style.width = btnRect.width + 'px';
+    blocker.style.height = btnRect.height + 'px';
+    blocker.style.zIndex = '9999';
+    document.body.appendChild(blocker);
+  
     setTimeout(() => {
-      quizPage.style.display = 'block';
-      quizPage.style.visibility = 'visible';
-      quizPage.style.opacity = '1';
-      quizPage.classList.add('zoom-fade');
-    }, 50);
-
-    loadQuestion(); // Charge la première question
-
-    // Réinitialise le wrapper
-    homeWrapper.classList.remove('fade-out');
-    homeWrapper.removeEventListener('transitionend', handleTransition);
-  }
+      homeBg.style.display = 'none';
+      introVideo.style.display = 'block';
+      introVideo.play();
+      startBtn.style.display = 'none';
+      blocker.remove();  // Supprime le blocker
+    }, 1800);
   
-  homeWrapper.addEventListener('transitionend', handleTransition);
-  // Fallback au cas où 'transitionend' ne se déclenche pas
-  setTimeout(handleTransition, 1200);
-});
-
+    let pausedBeforeEnd = false;
+    const triggerBeforeEnd = 6;
+  
+    // Afficher le bouton Skip après 0.5 seconde
+    introVideo.addEventListener('timeupdate', function() {
+      if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.display === 'none') {
+        skipBtn.classList.add('fade-in');
+        skipBtn.style.display = 'block';
+      }
+  
+      // Lorsqu'on approche de la fin de la vidéo, pause et affiche "COMMENCER"
+      if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
+        pausedBeforeEnd = true;
+        skipBtn.classList.remove('fade-in');
+        skipBtn.classList.add('fadeOut');
+        skipBtn.addEventListener('animationend', function() {
+          skipBtn.style.display = 'none';
+        }, { once: true });
+        skipClicked = true;
+        introVideo.pause();
+        commencerBtn.style.display = 'block';
+        commencerBtn.classList.add('fade-in2', 'blink');
+        const titre = document.getElementById('titre');
+        if (titre) {
+          titre.style.display = 'block';
+          titre.classList.add('fade-in2');
+        }
+        const newSound = new Audio('assets/alpha.mp3');
+        newSound.play();
+      }
+    });
+  
+    // Si la vidéo se termine sans déclencher timeupdate exactement, afficher "COMMENCER"
+    introVideo.addEventListener('ended', function() {
+      introVideo.pause();
+      commencerBtn.style.display = 'block';
+      commencerBtn.classList.add('fade-in2', 'blink');
+    });
+  });
+  
+  // Gestion de la transition vers le quiz
+  commencerBtn.addEventListener('click', function() {
+    // Fusion de la logique dans un seul écouteur
+    commencerSound.play();
+    // Ajoute les animations souhaitées
+    commencerBtn.classList.add('slow-blink', 'spin-fade');
+  
+    const homeWrapper = document.getElementById('home-wrapper');
+  
+    // Cache le quiz et réinitialise ses propriétés
+    quizPage.style.display = 'none';
+    quizPage.style.visibility = 'hidden';
+    quizPage.style.opacity = '0';
+    quizPage.classList.remove('zoom-fade');
+  
+    // Forcer un reflow
+    void homeWrapper.offsetWidth;
+  
+    // Lance la transition de la page d'accueil (fade-out)
+    homeWrapper.classList.add('fade-out');
+  
+    let transitionFired = false;
+    function handleTransition() {
+      if (transitionFired) return;
+      transitionFired = true;
+      console.log('Transition ended');
+  
+      // Masque la page d'accueil
+      homePage.style.display = 'none';
+  
+      // Après un léger délai, affiche le quiz
+      setTimeout(() => {
+        quizPage.style.display = 'block';
+        quizPage.style.visibility = 'visible';
+        quizPage.style.opacity = '1';
+        quizPage.classList.add('zoom-fade');
+      }, 50);
+  
+      loadQuestion(); // Charge la première question
+  
+      homeWrapper.classList.remove('fade-out');
+      homeWrapper.removeEventListener('transitionend', handleTransition);
+    }
+  
+    homeWrapper.addEventListener('transitionend', handleTransition);
+    setTimeout(handleTransition, 1200); // Fallback
+  });
+  
   // Chargement d'une question
   function loadQuestion() {
     const questionData = quizData[currentQuestion];
@@ -224,7 +218,7 @@ commencerBtn.addEventListener('click', function() {
     suivantBtn.style.display = 'none';
     selectedAnswer = null;
   }
-
+  
   // Sélection d'une réponse
   optionsEls.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -233,13 +227,13 @@ commencerBtn.addEventListener('click', function() {
       selectedAnswer = btn.dataset.answer;
     });
   });
-
+  
   // Bouton "JOUER" pour jouer le son
   jouerBtn.addEventListener('click', function() {
     jouerSound.currentTime = 0;
     jouerSound.play();
   });
-
+  
   // Validation de la réponse
   validerBtn.addEventListener('click', function() {
     if (!selectedAnswer) return;
@@ -269,11 +263,11 @@ commencerBtn.addEventListener('click', function() {
       }, 600);
     }
   });
-
+  
   suivantBtn.addEventListener('click', function() {
     nextQuestion();
   });
-
+  
   function nextQuestion() {
     feedbackImg.classList.remove('elastic', 'shake');
     currentQuestion++;
@@ -283,31 +277,18 @@ commencerBtn.addEventListener('click', function() {
       showResult();
     }
   }
-
+  
   function showResult() {
     quizPage.classList.remove('active');
     resultPage.classList.add('active');
     scoreEl.textContent = "Vous avez obtenu " + score + " sur " + quizData.length;
   }
-  document.getElementById('commencer-btn').addEventListener('click', () => {
   
-  // déclenche l'animation sur le bouton lui-même (facultatif, retire cette ligne si déjà animée)
-  document.getElementById('commencer-btn').classList.add('spin-fade');
-
-  // attend 1200ms avant de passer à la page suivante pour voir l'animation du bouton
-  setTimeout(() => {
-    document.getElementById('home').style.display = 'none';
-
-    const quizPage = document.getElementById('quiz');
-    quizPage.style.display = 'block';
-    quizPage.classList.add('zoom-fade');
-  }, 1200); // ajuste la durée (1200ms) selon ton animation actuelle
-});
-recommencerBtn.addEventListener('click', function() {
-  recommencerSound.play();
-  recommencerBtn.classList.add('blink');
-  setTimeout(function() {
-    window.location.reload();
-  }, 1000);
-});
+  recommencerBtn.addEventListener('click', function() {
+    recommencerSound.play();
+    recommencerBtn.classList.add('blink');
+    setTimeout(function() {
+      window.location.reload();
+    }, 1000);
+  });
 });
