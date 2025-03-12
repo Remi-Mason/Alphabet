@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       letter: 'assets/letterA.png',
       text: 'Comme dans...',
-      options: ['Avion', 'Alpaga', 'Abeille'],
-      correct: 'abeille'
+      options: ['Ballon', 'Chien', 'Albatros'],
+      correct: 'Albatros'
     },
     {
       letter: 'assets/letterB.png',
