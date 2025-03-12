@@ -159,47 +159,51 @@ const newSound = new Audio('assets/alpha.mp3'); // Remplacez le chemin par le fi
 });
 
 commencerBtn.addEventListener('click', function() {
+  // Joue le son et lance l'animation du bouton
   commencerSound.play();
   commencerBtn.classList.add('slow-blink');
+  commencerBtn.classList.add('spin-fade'); // Si tu souhaites garder cette animation
 
   const homeWrapper = document.getElementById('home-wrapper');
 
-  // 🔥 Cache le quiz complètement avant la transition
+  // Cache le quiz et supprime toute animation précédente
   quizPage.style.display = 'none';
-  quizPage.classList.remove('zoom-fade'); // Supprime toute animation précédente
+  quizPage.style.visibility = 'hidden';
+  quizPage.style.opacity = '0';
+  quizPage.classList.remove('zoom-fade');
 
   // Forcer un reflow pour s'assurer que la transition est prise en compte
   void homeWrapper.offsetWidth;
-
+  
+  // Lance la transition de la page d'accueil
   homeWrapper.classList.add('fade-out');
 
   let transitionFired = false;
-
   function handleTransition() {
     if (transitionFired) return;
     transitionFired = true;
     console.log('Transition ended');
-
-    // 🔥 Masquer complètement la page d'accueil avant d'afficher le quiz
+    
+    // Masque la page d'accueil
     homePage.style.display = 'none';
-
+    
+    // Après un léger délai, affiche le quiz en rendant visibles toutes ses propriétés
     setTimeout(() => {
-      quizPage.style.display = 'block'; // 🔥 S'assurer que le quiz est affiché
-      quizPage.style.visibility = 'visible'; // 🔥 Rendre visible après affichage
-      quizPage.style.opacity = '1'; // 🔥 Appliquer la transition d'opacité
-      quizPage.classList.add('zoom-fade'); // Ajoute l’animation
-    }, 50); // 🔥 Léger délai pour éviter l'effet "flash"
+      quizPage.style.display = 'block';
+      quizPage.style.visibility = 'visible';
+      quizPage.style.opacity = '1';
+      quizPage.classList.add('zoom-fade');
+    }, 50);
 
-    loadQuestion(); // Charger la première question
+    loadQuestion(); // Charge la première question
 
-    // Réinitialiser le wrapper
+    // Réinitialise le wrapper
     homeWrapper.classList.remove('fade-out');
     homeWrapper.removeEventListener('transitionend', handleTransition);
   }
-
+  
   homeWrapper.addEventListener('transitionend', handleTransition);
-
-  // Fallback en cas de non-déclenchement de l'événement après 600ms
+  // Fallback au cas où 'transitionend' ne se déclenche pas
   setTimeout(handleTransition, 1200);
 });
 
