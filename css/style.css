@@ -362,3 +362,8 @@ transform: translateX(8px);
   display: none !important;
   opacity: 0 !important;
 }
+.show-skip {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
