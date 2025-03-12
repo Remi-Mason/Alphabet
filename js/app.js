@@ -117,9 +117,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const triggerBeforeEnd = 6;
   
 introVideo.addEventListener('timeupdate', function() {
-  // Affiche le bouton Skip après 0.5 seconde, uniquement s'il n'a pas déjà la classe "show-skip"
-  if (!skipClicked && introVideo.currentTime >= 0.5 && !skipBtn.classList.contains('show-skip')) {
-    skipBtn.classList.add('show-skip');
+  // Affiche le bouton Skip après 0.5 seconde, uniquement s'il est caché (opacity == "0")
+  if (!skipClicked && introVideo.currentTime >= 0.5 && window.getComputedStyle(skipBtn).opacity === "0") {
+    skipBtn.classList.add('fade-in');
+    skipBtn.style.display = 'block'; // Affiche le bouton
+    // Après un court délai, active le pointer-events si nécessaire
+    setTimeout(() => {
+      skipBtn.style.pointerEvents = 'auto';
+    }, 100);
   }
 
   // Lorsqu'on approche de la fin de la vidéo, on arrête et on affiche "COMMENCER"
@@ -132,7 +137,7 @@ introVideo.addEventListener('timeupdate', function() {
     }, { once: true });
     skipClicked = true;
     introVideo.pause();
-    // Affiche le bouton COMMENCER et le titre
+    // Affiche le bouton "COMMENCER" et le titre
     commencerBtn.style.display = 'block';
     commencerBtn.classList.add('fade-in2', 'blink');
     const titre = document.getElementById('titre');
