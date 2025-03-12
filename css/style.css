@@ -331,3 +331,12 @@ font-family: 'Arial Black';
   margin-top: -30px !important;
 transform: translateX(8px);
 }
+#intro-video {
+  position: fixed; /* 👈 position fixe très efficace sur mobile */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1; /* à ajuster si nécessaire */
+}
