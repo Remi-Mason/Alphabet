@@ -116,34 +116,39 @@ document.addEventListener('DOMContentLoaded', function() {
     let pausedBeforeEnd = false;
     const triggerBeforeEnd = 6;
   
-    // Afficher le bouton Skip après 0.5 seconde
-    introVideo.addEventListener('timeupdate', function() {
-      if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.display === 'none') {
-        skipBtn.classList.add('fade-in');
-        skipBtn.style.display = 'block';
-      }
-  
-      // Lorsqu'on approche de la fin de la vidéo, pause et affiche "COMMENCER"
-      if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
-        pausedBeforeEnd = true;
-        skipBtn.classList.remove('fade-in');
-        skipBtn.classList.add('fadeOut');
-        skipBtn.addEventListener('animationend', function() {
-          skipBtn.style.display = 'none';
-        }, { once: true });
-        skipClicked = true;
-        introVideo.pause();
-        commencerBtn.style.display = 'block';
-        commencerBtn.classList.add('fade-in2', 'blink');
-        const titre = document.getElementById('titre');
-        if (titre) {
-          titre.style.display = 'block';
-          titre.classList.add('fade-in2');
-        }
-        const newSound = new Audio('assets/alpha.mp3');
-        newSound.play();
-      }
-    });
+  introVideo.addEventListener('timeupdate', function() {
+  // Affiche le bouton Skip après 0.5 seconde, uniquement s'il est caché (opacity == 0)
+  if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.opacity === "0") {
+    skipBtn.style.display = 'block'; // Affiche le bouton
+    // Après un court délai, active l'opacité et le pointer-events pour qu'il soit cliquable
+    setTimeout(() => {
+      skipBtn.style.opacity = '1';
+      skipBtn.style.pointerEvents = 'auto';
+    }, 100);
+  }
+
+  // Lorsqu'on approche de la fin de la vidéo, on arrête et on affiche "COMMENCER"
+  if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
+    pausedBeforeEnd = true;
+    skipBtn.classList.remove('fade-in');
+    skipBtn.classList.add('fadeOut');
+    skipBtn.addEventListener('animationend', function() {
+      skipBtn.style.display = 'none';
+    }, { once: true });
+    skipClicked = true;
+    introVideo.pause();
+    // Affiche le bouton COMMENCER et le titre
+    commencerBtn.style.display = 'block';
+    commencerBtn.classList.add('fade-in2', 'blink');
+    const titre = document.getElementById('titre');
+    if (titre) {
+      titre.style.display = 'block';
+      titre.classList.add('fade-in2');
+    }
+    const newSound = new Audio('assets/alpha.mp3');
+    newSound.play();
+  }
+});
   
     // Si la vidéo se termine sans déclencher timeupdate exactement, afficher "COMMENCER"
     introVideo.addEventListener('ended', function() {
