@@ -242,6 +242,7 @@ html, body {
   box-sizing: border-box;
   z-index: 2;
   color: #fff;
+	background-color: #111;
 }
 
 #question-counter {
@@ -365,6 +366,7 @@ transform: translateX(8px);
   opacity: 0; /* 🔥 Rend invisible pour éviter un flash */
   visibility: hidden; /* 🔥 Empêche tout affichage avant activation */
   transition: opacity 0.8s ease-in-out; /* 🔥 Assure une transition douce */
+	background-color: #111;
 }
 .show-skip {
   display: block !important;
