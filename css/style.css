@@ -319,7 +319,7 @@ font-family: 'Arial Black';
   to { transform: scale(1); opacity: 1; }
 }
 #intro-final-frame {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
