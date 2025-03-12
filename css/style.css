@@ -333,7 +333,7 @@ font-family: 'Arial Black';
   background-size: cover; /* 👈 S'assure que l'image remplit parfaitement l'écran */
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 2; /* 👈 S'assure qu'elle est au-dessus de la vidéo */
+  z-index: 1; /* 👈 S'assure qu'elle est au-dessus de la vidéo */
   display: none; /* Cachée au départ */
 }
 #letter-img {
