@@ -351,3 +351,9 @@ transform: translateX(8px);
   object-fit: cover;
   z-index: 1; /* à ajuster si nécessaire */
 }
+#quiz {
+  display: none; /* 🔥 Empêche tout affichage au début */
+  opacity: 0; /* 🔥 Rend invisible pour éviter un flash */
+  visibility: hidden; /* 🔥 Empêche tout affichage avant activation */
+  transition: opacity 0.8s ease-in-out; /* 🔥 Assure une transition douce */
+}
