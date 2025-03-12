@@ -62,33 +62,46 @@ document.addEventListener('DOMContentLoaded', function() {
   let score = 0;
   let selectedAnswer = null;
   
-  skipBtn.style.display = 'none';
-  	  let skipClicked = false;
-	  let pausedBeforeEnd = false;
-  
-skipBtn.addEventListener('click', function() {
-  skipClicked = true;
-  skipBtn.style.display = 'none';
+  // Assure que le bouton Skip est caché dès le début
+skipBtn.style.display = 'none';
+let skipClicked = false;
+let pausedBeforeEnd = false;
 
+skipBtn.addEventListener('click', function () {
+  skipClicked = true;
+
+  // 🔥 Cache immédiatement le bouton Skip
+  skipBtn.style.opacity = '0';
+  setTimeout(() => {
+    skipBtn.style.display = 'none';
+  }, 500); // 🔥 Petite transition pour éviter un effet brusque
+
+  // 🔥 Cache la vidéo et affiche l'image finale
   introVideo.pause();
   introVideo.style.display = 'none';
 
-  const lastFrameImg = document.getElementById('intro-final-frame'); // 👈 ID corrigé ici
+  const lastFrameImg = document.getElementById('intro-final-frame');
   lastFrameImg.style.display = 'block';
 
-  commencerBtn.style.display = 'block';
-  commencerBtn.classList.add('fade-in2', 'blink');
+  // 🔥 Affiche le bouton "Commencer" proprement après le skip
+  setTimeout(() => {
+    commencerBtn.style.display = 'block';
+    commencerBtn.classList.add('fade-in2', 'blink');
+  }, 10);
 
+  // 🔥 Affiche aussi le titre proprement
   const titre = document.getElementById('titre');
   if (titre) {
-    titre.style.display = 'block';
-    titre.classList.add('fade-in2');
+    setTimeout(() => {
+      titre.style.display = 'block';
+      titre.classList.add('fade-in2');
+    }, 10);
   }
 
+  // Joue le son après le skip
   const newSound = new Audio('assets/alpha.mp3');
   newSound.play();
 });
-
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
   startSound.play();
