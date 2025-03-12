@@ -113,7 +113,8 @@ html, body {
   z-index: 10;
 }
 #skip-btn {
-  display: none; /* 🔥 Empêche toute apparition au chargement */
+  display: none; /* 🔥 Cache le bouton au chargement */
+  opacity: 0; /* 🔥 Empêche tout flash d'apparition */
   position: absolute;
   bottom: 20px;
   right: 300px;
@@ -124,9 +125,9 @@ html, body {
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
-  opacity: 0.5;
-  z-index: 100; /* S'assurer qu'il est au-dessus de la vidéo */
   transition: opacity 0.5s ease-in-out;
+  pointer-events: none; /* 🔥 Bloque temporairement les clics avant affichage */
+  z-index: 101; /* 🔥 S'assure qu'il passe au-dessus de la vidéo */
 }
 
 #home-wrapper {
