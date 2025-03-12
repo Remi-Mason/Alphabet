@@ -89,7 +89,7 @@ html, body {
   transform: translateX(-50%);
   display: none;
   animation: fadeIn2 2s;
-  z-index: 2;
+  z-index: 10;
   /* Vous pouvez ajouter d'autres styles si nécessaire */
 }
 #commencer-btn {
@@ -110,7 +110,7 @@ html, body {
   transform: translate(-50%, -50%);
   opacity: 0;
   animation: fadeIn2 3s forwards, borderGlow 2s infinite;
-  z-index: 2;
+  z-index: 10;
 }
 #skip-btn {
   position: absolute;
