@@ -324,13 +324,15 @@ font-family: 'Arial Black';
   to { transform: scale(1); opacity: 1; }
 }
 #intro-final-frame {
-  position: fixed;
+  position: fixed; /* 👈 Assure un alignement identique */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;  /* 👈 exactement comme home-bg */
-  object-position: center;
+  object-fit: cover; /* 👈 Même comportement que la vidéo */
+  background-position: center;
+  z-index: 2; /* 👈 S'assure que l'image est bien visible */
+  display: none; /* Caché au départ */
 }
 #letter-img {
   margin-top: -30px !important;
