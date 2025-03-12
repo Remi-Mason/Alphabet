@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let score = 0;
   let selectedAnswer = null;
   
- skipBtn.style.display = 'none';
+  skipBtn.style.display = 'none';
   	  let skipClicked = false;
 	  let pausedBeforeEnd = false;
   
@@ -95,22 +95,15 @@ startBtn.addEventListener('click', function() {
   startBtn.classList.remove('breathe');
   startBtn.classList.add('spin-fade');
 
-  // 🔥 Vérification qu'aucun blocage ne reste en place
-  const existingBlocker = document.getElementById('start-blocker');
-  if (existingBlocker) {
-    existingBlocker.remove();
-  }
-
-  // 🔥 Ajout d'une couche de blocage TEMPORAIRE sur le bouton START
+  // Couche de blocage UNIQUEMENT sur le bouton START
   const blocker = document.createElement('div');
   const btnRect = startBtn.getBoundingClientRect();
 
-  blocker.id = "start-blocker"; // 🔥 ID unique pour éviter les duplications
   blocker.style.position = 'absolute';
-  blocker.style.top = `${btnRect.top}px`;
-  blocker.style.left = `${btnRect.left}px`;
-  blocker.style.width = `${btnRect.width}px`;
-  blocker.style.height = `${btnRect.height}px`;
+  blocker.style.top = btnRect.top + 'px';
+  blocker.style.left = btnRect.left + 'px';
+  blocker.style.width = btnRect.width + 'px';
+  blocker.style.height = btnRect.height + 'px';
   blocker.style.zIndex = '9999';
 
   document.body.appendChild(blocker);
@@ -120,21 +113,18 @@ startBtn.addEventListener('click', function() {
     introVideo.style.display = 'block';
     introVideo.play();
     startBtn.style.display = 'none';
-    
-    // 🔥 Suppression du blocage après utilisation
-    blocker.remove();
+    blocker.remove();  // Supprime le blocker après utilisation
   }, 1800);
 
   let pausedBeforeEnd = false;
-  let triggerBeforeEnd = 2;
+  const triggerBeforeEnd = 6;
 
   // Afficher le bouton skip après 2 secondes
-introVideo.addEventListener('timeupdate', function () {
-  if (!skipClicked && introVideo.currentTime >= 2 && skipBtn.style.opacity === "0") {
-    skipBtn.style.opacity = "1";
-    skipBtn.style.pointerEvents = "auto"; // 🔥 Active le clic
-  }
-});
+  introVideo.addEventListener('timeupdate', function() {
+    if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.display === 'none') {
+		    skipBtn.classList.add('fade-in');
+      skipBtn.style.display = 'block';
+    }
 
     // Mettre la vidéo en pause 0.1 seconde avant la fin pour afficher le bouton "COMMENCER"
     if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
@@ -171,44 +161,44 @@ const newSound = new Audio('assets/alpha.mp3'); // Remplacez le chemin par le fi
 commencerBtn.addEventListener('click', function() {
   commencerSound.play();
   commencerBtn.classList.add('slow-blink');
-
+  
+  // Cibler le wrapper pour la transition
   const homeWrapper = document.getElementById('home-wrapper');
-
+  
   // 🔥 Cache le quiz complètement avant la transition
   quizPage.style.display = 'none';
   quizPage.classList.remove('zoom-fade'); // Supprime toute animation précédente
 
   // Forcer un reflow pour s'assurer que la transition est prise en compte
   void homeWrapper.offsetWidth;
-
+  
   homeWrapper.classList.add('fade-out');
-
+  
   let transitionFired = false;
-
+  
   function handleTransition() {
     if (transitionFired) return;
     transitionFired = true;
     console.log('Transition ended');
 
     // 🔥 Masquer complètement la page d'accueil avant d'afficher le quiz
-    homePage.style.display = 'none';
-
+    homePage.style.display = 'none'; 
+    quizPage.style.display = 'block'; // S'assurer qu'elle est affichée après la transition
+    
+    // 🔥 Ajouter l'animation du quiz après un léger délai pour éviter l'effet "flash"
     setTimeout(() => {
-      quizPage.style.display = 'block'; // 🔥 S'assurer que le quiz est affiché
-      quizPage.style.visibility = 'visible'; // 🔥 Rendre visible après affichage
-      quizPage.style.opacity = '1'; // 🔥 Appliquer la transition d'opacité
-      quizPage.classList.add('zoom-fade'); // Ajoute l’animation
-    }, 50); // 🔥 Léger délai pour éviter l'effet "flash"
+      quizPage.classList.add('zoom-fade');
+    }, 10);
 
     loadQuestion(); // Charger la première question
-
+    
     // Réinitialiser le wrapper
     homeWrapper.classList.remove('fade-out');
     homeWrapper.removeEventListener('transitionend', handleTransition);
   }
-
+  
   homeWrapper.addEventListener('transitionend', handleTransition);
-
+  
   // Fallback en cas de non-déclenchement de l'événement après 600ms
   setTimeout(handleTransition, 1200);
 });
