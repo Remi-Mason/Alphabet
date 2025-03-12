@@ -59,7 +59,7 @@ html, body {
 /* Fond de la page du quiz */
 #quiz-bg {
   background-image: url('../assets/frame1.png');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222; /* Couleur de fond proche de l'image */
