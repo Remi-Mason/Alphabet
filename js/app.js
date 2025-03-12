@@ -62,46 +62,33 @@ document.addEventListener('DOMContentLoaded', function() {
   let score = 0;
   let selectedAnswer = null;
   
-  // Assure que le bouton Skip est caché dès le début
-skipBtn.style.display = 'none';
-let skipClicked = false;
-let pausedBeforeEnd = false;
-
-skipBtn.addEventListener('click', function () {
+ skipBtn.style.display = 'none';
+  	  let skipClicked = false;
+	  let pausedBeforeEnd = false;
+  
+skipBtn.addEventListener('click', function() {
   skipClicked = true;
+  skipBtn.style.display = 'none';
 
-  // 🔥 Cache immédiatement le bouton Skip
-  skipBtn.style.opacity = '0';
-  setTimeout(() => {
-    skipBtn.style.display = 'none';
-  }, 500); // 🔥 Petite transition pour éviter un effet brusque
-
-  // 🔥 Cache la vidéo et affiche l'image finale
   introVideo.pause();
   introVideo.style.display = 'none';
 
-  const lastFrameImg = document.getElementById('intro-final-frame');
+  const lastFrameImg = document.getElementById('intro-final-frame'); // 👈 ID corrigé ici
   lastFrameImg.style.display = 'block';
 
-  // 🔥 Affiche le bouton "Commencer" proprement après le skip
-  setTimeout(() => {
-    commencerBtn.style.display = 'block';
-    commencerBtn.classList.add('fade-in2', 'blink');
-  }, 10);
+  commencerBtn.style.display = 'block';
+  commencerBtn.classList.add('fade-in2', 'blink');
 
-  // 🔥 Affiche aussi le titre proprement
   const titre = document.getElementById('titre');
   if (titre) {
-    setTimeout(() => {
-      titre.style.display = 'block';
-      titre.classList.add('fade-in2');
-    }, 10);
+    titre.style.display = 'block';
+    titre.classList.add('fade-in2');
   }
 
-  // Joue le son après le skip
   const newSound = new Audio('assets/alpha.mp3');
   newSound.play();
 });
+
 // Logique de la page d'accueil
 startBtn.addEventListener('click', function() {
   startSound.play();
@@ -133,11 +120,14 @@ startBtn.addEventListener('click', function() {
   const triggerBeforeEnd = 6;
 
   // Afficher le bouton skip après 2 secondes
-  introVideo.addEventListener('timeupdate', function() {
-    if (!skipClicked && introVideo.currentTime >= 0.5 && skipBtn.style.display === 'none') {
-		    skipBtn.classList.add('fade-in');
-      skipBtn.style.display = 'block';
-    }
+introVideo.addEventListener('timeupdate', function() {
+  if (!skipClicked && introVideo.currentTime >= 1 && skipBtn.style.display === 'none') {
+    skipBtn.style.display = 'block'; // 🔥 Affiche le bouton seulement après 6s
+    setTimeout(() => {
+      skipBtn.classList.add('fade-in'); // 🔥 Ajoute une animation fluide
+    }, 10);
+  }
+});
 
     // Mettre la vidéo en pause 0.1 seconde avant la fin pour afficher le bouton "COMMENCER"
     if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
