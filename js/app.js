@@ -95,15 +95,22 @@ startBtn.addEventListener('click', function() {
   startBtn.classList.remove('breathe');
   startBtn.classList.add('spin-fade');
 
-  // Couche de blocage UNIQUEMENT sur le bouton START
+  // 🔥 Vérification qu'aucun blocage ne reste en place
+  const existingBlocker = document.getElementById('start-blocker');
+  if (existingBlocker) {
+    existingBlocker.remove();
+  }
+
+  // 🔥 Ajout d'une couche de blocage TEMPORAIRE sur le bouton START
   const blocker = document.createElement('div');
   const btnRect = startBtn.getBoundingClientRect();
 
+  blocker.id = "start-blocker"; // 🔥 ID unique pour éviter les duplications
   blocker.style.position = 'absolute';
-  blocker.style.top = btnRect.top + 'px';
-  blocker.style.left = btnRect.left + 'px';
-  blocker.style.width = btnRect.width + 'px';
-  blocker.style.height = btnRect.height + 'px';
+  blocker.style.top = `${btnRect.top}px`;
+  blocker.style.left = `${btnRect.left}px`;
+  blocker.style.width = `${btnRect.width}px`;
+  blocker.style.height = `${btnRect.height}px`;
   blocker.style.zIndex = '9999';
 
   document.body.appendChild(blocker);
@@ -113,20 +120,19 @@ startBtn.addEventListener('click', function() {
     introVideo.style.display = 'block';
     introVideo.play();
     startBtn.style.display = 'none';
-    blocker.remove();  // Supprime le blocker après utilisation
+    
+    // 🔥 Suppression du blocage après utilisation
+    blocker.remove();
   }, 1800);
 
   let pausedBeforeEnd = false;
-  const triggerBeforeEnd = 6;
+  let triggerBeforeEnd = 2;
 
   // Afficher le bouton skip après 2 secondes
 introVideo.addEventListener('timeupdate', function () {
-  if (!skipClicked && introVideo.currentTime >= 1 && skipBtn.style.opacity === '0') {
-    skipBtn.style.display = 'block';
-    setTimeout(() => {
-      skipBtn.style.opacity = '1';
-      skipBtn.style.pointerEvents = 'auto'; // 🔥 Active le bouton après animation
-    }, 100);
+  if (!skipClicked && introVideo.currentTime >= 2 && skipBtn.style.opacity === "0") {
+    skipBtn.style.opacity = "1";
+    skipBtn.style.pointerEvents = "auto"; // 🔥 Active le clic
   }
 });
 
