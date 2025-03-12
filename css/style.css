@@ -16,6 +16,7 @@ html, body {
   max-height: 1920px;
   margin: auto;
   overflow: hidden;
+	background-color: #111;
 }
 
 /* Styles des pages */
@@ -42,6 +43,7 @@ html, body {
 }
 #home {
   position: relative;
+	background-color: #111;
 }
 /* Fond de la page d'accueil */
 #home-bg {
