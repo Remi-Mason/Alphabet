@@ -324,15 +324,17 @@ font-family: 'Arial Black';
   to { transform: scale(1); opacity: 1; }
 }
 #intro-final-frame {
-  position: fixed; /* 👈 Assure un alignement identique */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 👈 Même comportement que la vidéo */
+  background-image: url('../assets/intro_last_frame.png'); /* 👈 Défini comme un fond */
+  background-size: cover; /* 👈 S'assure que l'image remplit parfaitement l'écran */
   background-position: center;
-  z-index: 2; /* 👈 S'assure que l'image est bien visible */
-  display: none; /* Caché au départ */
+  background-repeat: no-repeat;
+  z-index: 2; /* 👈 S'assure qu'elle est au-dessus de la vidéo */
+  display: none; /* Cachée au départ */
 }
 #letter-img {
   margin-top: -30px !important;
