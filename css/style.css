@@ -45,6 +45,7 @@ html, body {
 }
 /* Fond de la page d'accueil */
 #home-bg {
+  position: fixed;
   background-image: url('../assets/home_bg.png');
   background-size: contain; /* ou "cover" si vous préférez couvrir entièrement */
   background-repeat: no-repeat;
