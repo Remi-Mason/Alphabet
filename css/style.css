@@ -64,7 +64,6 @@ html, body {
   background-position: center;
   background-color: #222; /* Couleur de fond proche de l'image */
     display: none;
-	opacity: 0;
 }
 
 /* Fond de la page de résultat */
