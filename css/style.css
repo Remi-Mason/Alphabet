@@ -78,9 +78,10 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-   -webkit-tap-highlight-color: transparent; /* retire la sélection bleue sur mobile */
-  user-select: none;                        /* empêche aussi la sélection de texte accidentelle */
-  outline: none;                 
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  outline: none;
+  z-index: 300; /* Ajoute un z-index élevé pour être sûr qu'il soit au-dessus */
 }
 #titre {
   position: absolute;
