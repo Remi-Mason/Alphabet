@@ -51,7 +51,7 @@ html, body {
   width: 100%;
   height: 100%;
   background-image: url('../assets/home_bg.png');
-  background-size: contain; /* ou contain selon ton image actuelle */
+  background-size: cover; /* ou contain selon ton image actuelle */
   background-repeat: no-repeat;
   background-position: center;
 }
