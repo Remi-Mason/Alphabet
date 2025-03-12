@@ -362,11 +362,12 @@ transform: translateX(8px);
   z-index: 1; /* à ajuster si nécessaire */
 }
 #quiz {
-  display: none; /* 🔥 Empêche tout affichage au début */
-  opacity: 0; /* 🔥 Rend invisible pour éviter un flash */
-  visibility: hidden; /* 🔥 Empêche tout affichage avant activation */
-  transition: opacity 0.8s ease-in-out; /* 🔥 Assure une transition douce */
-	background-color: #111;
+  display: none; 
+  opacity: 0; 
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out;
+  background-color: #111;  /* Fond opaque */
+  z-index: 500;            /* S'assure que le quiz est au-dessus de la page d'accueil */
 }
 .show-skip {
   display: block !important;
