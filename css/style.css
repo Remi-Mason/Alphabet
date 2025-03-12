@@ -44,6 +44,7 @@ html, body {
 #home {
   position: relative;
 	background-color: #111;
+	z-index: 500;
 }
 /* Fond de la page d'accueil */
 #home-bg {
@@ -367,7 +368,7 @@ transform: translateX(8px);
   visibility: hidden;
   transition: opacity 0.8s ease-in-out;
   background-color: #111;  /* Fond opaque */
-  z-index: 500;            /* S'assure que le quiz est au-dessus de la page d'accueil */
+  z-index: 100;           /* S'assure que le quiz est au-dessus de la page d'accueil */
 }
 .show-skip {
   display: block !important;
