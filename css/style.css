@@ -78,9 +78,10 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-   -webkit-tap-highlight-color: transparent; /* retire la sélection bleue sur mobile */
-  user-select: none;                        /* empêche aussi la sélection de texte accidentelle */
-  outline: none;                 
+  -webkit-tap-highlight-color: transparent; /* 🔥 Retire la sélection bleue sur mobile */
+  user-select: none; /* 🔥 Empêche toute sélection de texte */
+  outline: none;
+  z-index: 200; /* 🔥 S'assure que le bouton Start est TOUJOURS au-dessus */
 }
 #titre {
   position: absolute;
@@ -117,7 +118,7 @@ html, body {
   opacity: 0; /* 🔥 Empêche tout flash d'apparition */
   position: absolute;
   bottom: 20px;
-  right: 300px;
+  right: 20px; /* 🔥 Ajusté pour être plus accessible */
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
   border: none;
@@ -126,8 +127,8 @@ html, body {
   font-size: 16px;
   cursor: pointer;
   transition: opacity 0.5s ease-in-out;
-  pointer-events: none; /* 🔥 Bloque temporairement les clics avant affichage */
-  z-index: 101; /* 🔥 S'assure qu'il passe au-dessus de la vidéo */
+  pointer-events: none; /* 🔥 Empêche tout clic tant qu'il n'est pas visible */
+  z-index: 100; /* 🔥 INFÉRIEUR au bouton Start */
 }
 
 #home-wrapper {
