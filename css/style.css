@@ -358,10 +358,6 @@ transform: translateX(8px);
   visibility: hidden; /* 🔥 Empêche tout affichage avant activation */
   transition: opacity 0.8s ease-in-out; /* 🔥 Assure une transition douce */
 }
-#skip-btn {
-  display: none !important;
-  opacity: 0 !important;
-}
 .show-skip {
   display: block !important;
   opacity: 1 !important;
