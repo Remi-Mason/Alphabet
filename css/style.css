@@ -240,8 +240,6 @@ html, body {
   box-sizing: border-box;
   z-index: 2;
   color: #fff;
-	    display: none;
-	opacity: 0;
 }
 
 #question-counter {
