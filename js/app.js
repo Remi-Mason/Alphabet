@@ -161,44 +161,44 @@ const newSound = new Audio('assets/alpha.mp3'); // Remplacez le chemin par le fi
 commencerBtn.addEventListener('click', function() {
   commencerSound.play();
   commencerBtn.classList.add('slow-blink');
-  
-  // Cibler le wrapper pour la transition
+
   const homeWrapper = document.getElementById('home-wrapper');
-  
+
   // 🔥 Cache le quiz complètement avant la transition
   quizPage.style.display = 'none';
   quizPage.classList.remove('zoom-fade'); // Supprime toute animation précédente
 
   // Forcer un reflow pour s'assurer que la transition est prise en compte
   void homeWrapper.offsetWidth;
-  
+
   homeWrapper.classList.add('fade-out');
-  
+
   let transitionFired = false;
-  
+
   function handleTransition() {
     if (transitionFired) return;
     transitionFired = true;
     console.log('Transition ended');
 
     // 🔥 Masquer complètement la page d'accueil avant d'afficher le quiz
-    homePage.style.display = 'none'; 
-    quizPage.style.display = 'block'; // S'assurer qu'elle est affichée après la transition
-    
-    // 🔥 Ajouter l'animation du quiz après un léger délai pour éviter l'effet "flash"
+    homePage.style.display = 'none';
+
     setTimeout(() => {
-      quizPage.classList.add('zoom-fade');
-    }, 10);
+      quizPage.style.display = 'block'; // 🔥 S'assurer que le quiz est affiché
+      quizPage.style.visibility = 'visible'; // 🔥 Rendre visible après affichage
+      quizPage.style.opacity = '1'; // 🔥 Appliquer la transition d'opacité
+      quizPage.classList.add('zoom-fade'); // Ajoute l’animation
+    }, 50); // 🔥 Léger délai pour éviter l'effet "flash"
 
     loadQuestion(); // Charger la première question
-    
+
     // Réinitialiser le wrapper
     homeWrapper.classList.remove('fade-out');
     homeWrapper.removeEventListener('transitionend', handleTransition);
   }
-  
+
   homeWrapper.addEventListener('transitionend', handleTransition);
-  
+
   // Fallback en cas de non-déclenchement de l'événement après 600ms
   setTimeout(handleTransition, 1200);
 });
