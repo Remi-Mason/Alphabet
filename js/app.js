@@ -117,16 +117,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let pausedBeforeEnd = false;
     const triggerBeforeEnd = 6;
 
-    introVideo.addEventListener('timeupdate', function() {
-      // Affiche le bouton Skip après 0.5 seconde, uniquement s'il n'a pas déjà été affiché
-      if (!skipClicked && introVideo.currentTime >= 0.5 && !skipBtnShown) {
-        skipBtn.style.display = 'block';
-        setTimeout(() => {
-          skipBtn.style.opacity = '0.5';
-          skipBtn.style.pointerEvents = 'auto';
-        }, 100);
-        skipBtnShown = true;
-      }
+introVideo.addEventListener('timeupdate', function() {
+  // Affiche le bouton Skip après 0.5 seconde, uniquement s'il n'a pas encore été affiché
+  if (!skipClicked && introVideo.currentTime >= 0.5 && !skipBtnShown) {
+    // Ajoute la classe pour forcer l'affichage et l'opacité à 0.5
+    skipBtn.classList.add('show-skip');
+    // Assure-toi aussi de définir le display en block (au cas où)
+    skipBtn.style.display = 'block';
+    skipBtnShown = true;
+  }
+
 
       // Lorsqu'on approche de la fin de la vidéo, on arrête et on affiche "COMMENCER"
       if (!pausedBeforeEnd && introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.1) {
