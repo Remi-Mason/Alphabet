@@ -120,12 +120,13 @@ startBtn.addEventListener('click', function() {
   const triggerBeforeEnd = 6;
 
   // Afficher le bouton skip après 2 secondes
-introVideo.addEventListener('timeupdate', function() {
-  if (!skipClicked && introVideo.currentTime >= 1 && skipBtn.style.display === 'none') {
-    skipBtn.style.display = 'block'; // 🔥 Affiche le bouton seulement après 6s
+introVideo.addEventListener('timeupdate', function () {
+  if (!skipClicked && introVideo.currentTime >= 6 && skipBtn.style.opacity === '0') {
+    skipBtn.style.display = 'block';
     setTimeout(() => {
-      skipBtn.classList.add('fade-in'); // 🔥 Ajoute une animation fluide
-    }, 10);
+      skipBtn.style.opacity = '1';
+      skipBtn.style.pointerEvents = 'auto'; // 🔥 Assure qu'il est cliquable
+    }, 50); // Petit délai pour éviter les conflits d'affichage
   }
 });
 
