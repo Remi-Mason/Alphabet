@@ -165,6 +165,10 @@ commencerBtn.addEventListener('click', function() {
   // Cibler le wrapper pour la transition
   const homeWrapper = document.getElementById('home-wrapper');
   
+  // 🔥 Cache le quiz complètement avant la transition
+  quizPage.style.display = 'none';
+  quizPage.classList.remove('zoom-fade'); // Supprime toute animation précédente
+
   // Forcer un reflow pour s'assurer que la transition est prise en compte
   void homeWrapper.offsetWidth;
   
@@ -176,10 +180,16 @@ commencerBtn.addEventListener('click', function() {
     if (transitionFired) return;
     transitionFired = true;
     console.log('Transition ended');
+
+    // 🔥 Masquer complètement la page d'accueil avant d'afficher le quiz
+    homePage.style.display = 'none'; 
+    quizPage.style.display = 'block'; // S'assurer qu'elle est affichée après la transition
     
-    // Une fois la transition terminée, masquer la page d'accueil et afficher le quiz
-    homePage.classList.remove('active');
-    quizPage.classList.add('active');
+    // 🔥 Ajouter l'animation du quiz après un léger délai pour éviter l'effet "flash"
+    setTimeout(() => {
+      quizPage.classList.add('zoom-fade');
+    }, 10);
+
     loadQuestion(); // Charger la première question
     
     // Réinitialiser le wrapper
@@ -192,7 +202,6 @@ commencerBtn.addEventListener('click', function() {
   // Fallback en cas de non-déclenchement de l'événement après 600ms
   setTimeout(handleTransition, 1200);
 });
-
 
   // Chargement d'une question
   function loadQuestion() {
