@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!skipClicked && introVideo.currentTime >= 0.5 && !skipBtnShown) {
         skipBtn.style.display = 'block';
         setTimeout(() => {
-          skipBtn.style.opacity = '1';
+          skipBtn.style.opacity = '0.5';
           skipBtn.style.pointerEvents = 'auto';
         }, 100);
         skipBtnShown = true;
