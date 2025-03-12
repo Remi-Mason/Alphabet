@@ -295,10 +295,12 @@ font-family: 'Arial Black';
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   font-family: 'Arial Black';
+	  font-weight: bold;
 }
 
 .option:active, .option.selected {
   font-family: 'Arial Black';
+	  font-weight: bold;
   -webkit-text-stroke: 1px black;
   text-shadow: 1px 1px 2px black;
   background-color: #2ddff3;
