@@ -59,7 +59,7 @@ html, body {
 /* Fond de la page du quiz */
 #quiz-bg {
   background-image: url('../assets/frame1.png');
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222; /* Couleur de fond proche de l'image */
@@ -78,10 +78,9 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  outline: none;
-  z-index: 300; /* 🔥 Assure que Start est AU-DESSUS de tout */
+   -webkit-tap-highlight-color: transparent; /* retire la sélection bleue sur mobile */
+  user-select: none;                        /* empêche aussi la sélection de texte accidentelle */
+  outline: none;                 
 }
 #titre {
   position: absolute;
@@ -116,7 +115,7 @@ html, body {
 #skip-btn {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  right: 300px;
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
   border: none;
@@ -124,12 +123,9 @@ html, body {
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
-  opacity: 0; /* 🔥 Empêche l'affichage au démarrage */
-  pointer-events: none; /* 🔥 Bloque tout clic */
-  transition: opacity 0.3s ease-in-out;
-  z-index: 150; /* 🔥 Doit être sous Start */
+  opacity: 0.5;
+  z-index: 100; /* S'assurer qu'il est au-dessus de la vidéo */
 }
-
 #home-wrapper {
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
