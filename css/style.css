@@ -64,6 +64,7 @@ html, body {
   background-position: center;
   background-color: #222; /* Couleur de fond proche de l'image */
     display: none;
+	opacity: 0;
 }
 
 /* Fond de la page de résultat */
@@ -239,6 +240,8 @@ html, body {
   box-sizing: border-box;
   z-index: 2;
   color: #fff;
+	    display: none;
+	opacity: 0;
 }
 
 #question-counter {
